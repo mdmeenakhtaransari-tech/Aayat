@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Queen</title>
+    <title>For My Queen ✨</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,6 @@
             position: relative;
         }
 
-        /* Floating Hearts Canvas Background */
         #heartCanvas {
             position: absolute;
             top: 0;
@@ -33,133 +32,201 @@
             pointer-events: none;
         }
 
-        /* Main Card Design */
+        /* Container for Glassmorphism Cards */
         .card {
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 2.5rem;
+            padding: 3rem 2.5rem;
             border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(255, 75, 110, 0.15);
+            box-shadow: 0 12px 40px rgba(255, 75, 110, 0.15);
             text-align: center;
-            max-width: 450px;
+            max-width: 460px;
             width: 90%;
             z-index: 2;
-            animation: fadeIn 1.5s ease-in-out;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .profile-title {
+        /* Hide Page 2 initially */
+        #page2 {
+            display: none;
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+        }
+
+        /* Typography */
+        h1 {
             color: #ff477e;
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
             font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
-        .subtitle {
-            color: #ff7096;
+        p {
+            color: #4a4a4a;
             font-size: 1.1rem;
-            margin-bottom: 30px;
-            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
-        /* Interactive Buttons */
+        .highlight-text {
+            color: #ff0a54;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 15px;
+        }
+
+        /* Interactive Buttons Structure */
         .btn-container {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 25px;
+            margin-top: 30px;
             position: relative;
-            height: 50px;
+            height: 55px;
         }
 
         .btn {
-            padding: 12px 35px;
+            padding: 14px 40px;
             border: none;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.2);
+        }
+
+        .next-btn, .yes-btn {
+            background: linear-gradient(45deg, #ff477e, #ff0a54);
+            color: white;
+            width: 100%;
         }
 
         .yes-btn {
-            background-color: #ff477e;
-            color: white;
+            width: auto;
         }
 
-        .yes-btn:hover {
-            background-color: #ff0a54;
-            transform: scale(1.1);
+        .next-btn:hover, .yes-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 10, 84, 0.4);
         }
 
         .no-btn {
             background-color: #ffcad4;
             color: #ff477e;
             position: absolute;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* Success Message styling */
         .success-message {
             display: none;
             color: #ff0a54;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            margin-top: 20px;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            line-height: 1.5;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* Animations */
         @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
+            0% { transform: scale(0.6); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Hidden Romantic Audio Track -->
     <audio id="bg-music" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="heartCanvas"></canvas>
 
-    <div class="card">
-        <h1 class="profile-title">Hey Glossy Queen ✨</h1>
-        <p class="subtitle">You make every single day brighter just by being in it.</p>
-        
-        <h2 style="color: #4a4a4a; font-size: 1.3rem;">Will you go on a date with me? 🌹</h2>
+    <!-- PAGE 1: THE TEASER & BUILD UP -->
+    <div class="card" id="page1">
+        <h1>Hey Glossy Queen ✨</h1>
+        <p>From the moment you stepped into my life, everything changed. You have this magical way of making the entire world fade away whenever you smile.</p>
+        <p>I built this little corner of the internet just for you because there is something incredibly important I've been meaning to ask...</p>
+        <button class="btn next-btn" onclick="goToPage2()">Open My Heart 🔐</button>
+    </div>
+
+    <!-- PAGE 2: THE ULTIMATE PROPOSAL -->
+    <div class="card" id="page2">
+        <h1>Forever With You? 💍</h1>
+        <p>You are my dream come true, my happiest thought, and my absolute favorite person in the cosmos.</p>
+        <p class="highlight-text">Will you do me the ultimate honor of being mine forever?</p>
         
         <div class="btn-container" id="btnContainer">
-            <button class="btn yes-btn" onclick="celebrate()">Yes!</button>
-            <button class="btn no-btn" id="noBtn" style="left: 55%;">No</button>
+            <button class="btn yes-btn" onclick="proposeSuccess()">Yes, I Will! ❤️</button>
+            <button class="btn no-btn" id="noBtn" style="left: 58%;">No</button>
         </div>
 
         <div class="success-message" id="successMsg">
-            Yay! 🥰 I can't wait! ❤️ <br>
-            (Check your DMs!)
+            💍 She Said YES!!! 🎉<br>
+            <span style="font-size: 1.1rem; color: #ff477e; font-weight: normal;">You've made me the happiest person alive. I love you endlessly! ❤️</span>
         </div>
     </div>
 
     <script>
-        // --- 1. Background Music Interaction Bypass ---
+        // --- Music Controls ---
         function playMusic() {
             const music = document.getElementById('bg-music');
             if (music.paused) {
-                music.play().catch(err => console.log("Audio waiting for explicit click."));
+                music.play().catch(err => console.log("Audio waiting for user gesture..."));
             }
         }
-        // Triggers music on the first tap anywhere
         document.addEventListener('click', playMusic);
         document.addEventListener('touchstart', playMusic);
 
+        // --- Page Navigation Transition ---
+        function goToPage2() {
+            playMusic();
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            
+            p1.style.opacity = '0';
+            p1.style.transform = 'scale(0.9) translateY(-20px)';
+            
+            setTimeout(() => {
+                p1.style.display = 'none';
+                p2.style.display = 'block';
+                // Trigger smooth animation arrival for page 2
+                setTimeout(() => {
+                    p2.style.opacity = '1';
+                    p2.style.transform = 'scale(1) translateY(0)';
+                }, 50);
+            }, 400);
+        }
 
-        // --- 2. Floating Hearts Animation ---
+        // --- Interactive Evading "No" Button ---
+        const noBtn = document.getElementById('noBtn');
+        function dodgeButton() {
+            const maxX = 130; 
+            const maxY = 90; 
+            const randomX = (Math.random() - 0.5) * maxX * 2;
+            const randomY = (Math.random() - 0.5) * maxY * 2;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+        noBtn.addEventListener('mouseenter', dodgeButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); dodgeButton(); });
+
+        // --- Celebration Trigger ---
+        function proposeSuccess() {
+            playMusic();
+            document.getElementById('btnContainer').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+            
+            // Unleash intense background heart shower
+            for(let i=0; i<60; i++) {
+                setTimeout(() => { hearts.push(new Heart(true)); }, i * 60);
+            }
+        }
+
+        // --- Canvas Romantic Ambiance ---
         const canvas = document.getElementById('heartCanvas');
         const ctx = canvas.getContext('2d');
         let hearts = [];
@@ -172,20 +239,19 @@
         resizeCanvas();
 
         class Heart {
-            constructor() {
+            constructor(fast = false) {
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height + Math.random() * 100;
-                this.size = Math.random() * 15 + 5;
-                this.speed = Math.random() * 2 + 1;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 14 + 6;
+                this.speed = fast ? (Math.random() * 4 + 3) : (Math.random() * 1.5 + 1);
+                this.opacity = Math.random() * 0.5 + 0.3;
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = '#ff7096';
+                ctx.fillStyle = '#ff6b8b';
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
-                // Simple heart drawing formula
                 ctx.bezierCurveTo(this.x - this.size/2, this.y - this.size/2, this.x - this.size, this.y + this.size/3, this.x, this.y + this.size);
                 ctx.bezierCurveTo(this.x + this.size, this.y + this.size/3, this.x + this.size/2, this.y - this.size/2, this.x, this.y);
                 ctx.fill();
@@ -200,7 +266,7 @@
             }
         }
 
-        for(let i=0; i<30; i++) { hearts.push(new Heart()); }
+        for(let i=0; i<25; i++) { hearts.push(new Heart()); }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -208,44 +274,6 @@
             requestAnimationFrame(animate);
         }
         animate();
-
-
-        // --- 3. Teleporting "No" Button ---
-        const noBtn = document.getElementById('noBtn');
-        
-        function moveNoButton() {
-            // Get safe dimensions inside the card container limits
-            const maxX = 120; 
-            const maxY = 100; 
-            
-            // Generate dynamic random directions
-            const randomX = (Math.random() - 0.5) * maxX * 2;
-            const randomY = (Math.random() - 0.5) * maxY * 2;
-            
-            // Teleport button using transform style
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
-
-        noBtn.addEventListener('mouseenter', moveNoButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevents clicking mobile ghost elements
-            moveNoButton();
-        });
-
-
-        // --- 4. Success Trigger ---
-        function celebrate() {
-            playMusic();
-            document.getElementById('btnContainer').style.display = 'none';
-            document.getElementById('successMsg').style.display = 'block';
-            
-            // Turn up background heart storm!
-            for(let i=0; i<40; i++) {
-                setTimeout(() => {
-                    hearts.push(new Heart());
-                }, i * 100);
-            }
-        }
     </script>
 </body>
 </html>
